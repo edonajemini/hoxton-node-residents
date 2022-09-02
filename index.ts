@@ -17,6 +17,7 @@ app.get('/', (req, res) => {
     `)
   })
 
+// Get all the houses with people who lives in them
 app.get('/houses', (req, res)=>{
     let displayedhouses = houses.map(house =>{
         let listofresidents = residents.filter(resident => resident.houseId === house.id)
@@ -25,6 +26,7 @@ app.get('/houses', (req, res)=>{
     res.send(displayedhouses )
   })
 
+//Get all the residents and the houses they live in
 app.get('/residents', (req, res)=>{
     let displayedresidents = residents.map(resident =>{
         let house = houses.find(house => house.id === resident.houseId)
@@ -32,6 +34,22 @@ app.get('/residents', (req, res)=>{
     })
     res.send(displayedresidents )
   })
+
+//Get the houses with people who lives in them by ID
+app.get ('/houses/:id', (req, res) => {
+  const id = Number(req.params.id)
+  let match = {
+  "houses" : houses.find(house => house.id === id),
+  "housesresidents" :residents.filter(resident => resident.houseId === id)
+  }
+  if (match) {
+    res.send(match)
+  }
+  else {
+      res.status(404).send({ error: `House doesn't exist!` })
+  }
+}
+)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
