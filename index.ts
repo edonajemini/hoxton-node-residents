@@ -26,6 +26,75 @@ app.get('/houses', (req, res)=>{
     res.send(displayedhouses )
   })
 
+// Post houses
+app.post('/houses', (req, res) => {
+  let errors: string[] = []
+ 
+  if(typeof req.body.residentsId !=='number') {
+      errors.push('Add a proper resident Id')
+  }
+  if(typeof req.body.adress !=='string') {
+      errors.push('Add a proper adress')
+  }
+  if(typeof req.body.type !=='string') {
+      errors.push('Add a proper type')
+  }
+  if(typeof req.body.capacity !=='number') {
+    errors.push('Add a proper number of people that can live in the house')
+}
+
+
+  if( errors.length === 0)  {
+      const newhouse = {
+          id: houses[houses.length - 1].id + 1,
+          residentsId:req.body.residentsId,
+          adress: req.body.adress,
+          type: req.body.type,
+          capacity: req.body.capacity
+      }
+  
+      houses.push(newhouse)
+      res.send(newhouse)
+  }
+  else {
+      res.status(400).send({ errors: errors })
+    }
+})
+
+// Post residents
+app.post('/residents', (req, res) => {
+  let errors: string[] = []
+ 
+  if(typeof req.body.houseId !=='number') {
+      errors.push('Add a proper house Id')
+  }
+  if(typeof req.body.name !=='string') {
+      errors.push('Add a proper name')
+  }
+  if(typeof req.body.age !=='number') {
+      errors.push('Add a proper age')
+  }
+  if(typeof req.body.gender !=='string') {
+    errors.push('Add a proper gender')
+  }
+
+  if( errors.length === 0)  {
+      const newresident = {
+          id: residents[residents.length - 1].id + 1,
+          houseId:req.body.houseId,
+          name: req.body.name,
+          age: req.body.age,
+          gender: req.body.gende
+      }
+  
+      residents.push(newresident)
+      res.send(newresident)
+  }
+  else {
+      res.status(400).send({ errors: errors })
+    }
+})
+
 //Get all the residents and the houses they live in
 app.get('/residents', (req, res)=>{
     let displayedresidents = residents.map(resident =>{
