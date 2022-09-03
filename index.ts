@@ -27,6 +27,15 @@ app.get('/houses', (req, res)=>{
     res.send(displayedhouses )
   })
 
+//Get all the residents and the houses they live in
+app.get('/residents', (req, res)=>{
+  let displayedresidents = residents.map(resident =>{
+      let house = houses.find(house => house.id === resident.houseId)
+      return{...resident, house}
+  })
+  res.send(displayedresidents )
+})
+
 // Post houses
 app.post('/houses', (req, res) => {
   let errors: string[] = []
@@ -100,14 +109,6 @@ app.post('/residents', (req, res) => {
   }
 
 )
-//Get all the residents and the houses they live in
-app.get('/residents', (req, res)=>{
-    let displayedresidents = residents.map(resident =>{
-        let house = houses.find(house => house.id === resident.houseId)
-        return{...resident, house}
-    })
-    res.send(displayedresidents )
-  })
 
 //Get the houses with people who lives in them by ID
 app.get ('/houses/:id', (req, res) => {
@@ -131,7 +132,7 @@ app.get ('/residents/:id', (req, res) => {
   const id = Number(req.params.id)
   let matchtwo = {
   "residents" : residents.find(resident => resident.id === id),
-  "theirhouses": houses.filter(house =>house.residentsId  === id)
+  "theirhouses": residents.filter(resident => resident.houseId === id)
   }
   if (matchtwo) {
     res.send(matchtwo)
