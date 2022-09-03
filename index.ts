@@ -128,6 +128,7 @@ app.get ('/houses/:id', (req, res) => {
 
 // Getting the residents and their houses by ID
 //Dont forget to ask how to fix thisss!!! (How to equal a list of arrays with an ID?)
+
 app.get ('/residents/:id', (req, res) => {
   const id = Number(req.params.id)
   let match = {
@@ -138,11 +139,10 @@ app.get ('/residents/:id', (req, res) => {
     res.send(match)
   }
   else {
-      res.status(404).send({ error: `House doesn't exist!` })
+      res.status(404).send({ error: `Resident doesn't exist!` })
   }
 }
 )
-
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
