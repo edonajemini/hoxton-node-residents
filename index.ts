@@ -75,7 +75,6 @@ app.post('/houses', (req, res) => {
 app.post('/residents', (req, res) => {
   
   let errors: string[] = []
-
   
   if(typeof req.body.houseId !=='number') {
       errors.push('Add a proper house Id')
@@ -89,8 +88,7 @@ app.post('/residents', (req, res) => {
   if(typeof req.body.gender !=='string') {
     errors.push('Add a proper gender')
   }
-  
-  
+
     if( errors.length === 0)  {
       const newresident = {
           id: residents[residents.length - 1].id + 1,
