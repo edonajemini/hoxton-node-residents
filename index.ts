@@ -130,15 +130,15 @@ app.get ('/houses/:id', (req, res) => {
 //Dont forget to ask how to fix thisss!!! (How to equal a list of arrays with an ID?)
 app.get ('/residents/:id', (req, res) => {
   const id = Number(req.params.id)
-  let matchtwo = {
+  let match = {
   "residents" : residents.find(resident => resident.id === id),
-  "theirhouses": residents.filter(resident => resident.houseId === id)
+  "theirhouses" :houses.filter(house => house.residentid === id)
   }
-  if (matchtwo) {
-    res.send(matchtwo)
+  if (match) {
+    res.send(match)
   }
   else {
-      res.status(404).send({ error: `Resident doesn't exist!` })
+      res.status(404).send({ error: `House doesn't exist!` })
   }
 }
 )
