@@ -12,6 +12,7 @@ const port = 4000
 
 app.get('/', (req, res) => {
     res.send(`
+    <h1>Recorces:</h1>
         <a href="/houses">Houses</a>
         <a href="/residents">Residents</a>
     `)
@@ -63,8 +64,10 @@ app.post('/houses', (req, res) => {
 
 // Post residents
 app.post('/residents', (req, res) => {
+  
   let errors: string[] = []
- 
+
+  
   if(typeof req.body.houseId !=='number') {
       errors.push('Add a proper house Id')
   }
@@ -77,8 +80,9 @@ app.post('/residents', (req, res) => {
   if(typeof req.body.gender !=='string') {
     errors.push('Add a proper gender')
   }
-
-  if( errors.length === 0)  {
+  
+  
+    if( errors.length === 0)  {
       const newresident = {
           id: residents[residents.length - 1].id + 1,
           houseId:req.body.houseId,
@@ -90,11 +94,12 @@ app.post('/residents', (req, res) => {
       residents.push(newresident)
       res.send(newresident)
   }
-  else {
+  else  {
       res.status(400).send({ errors: errors })
     }
-})
+  }
 
+)
 //Get all the residents and the houses they live in
 app.get('/residents', (req, res)=>{
     let displayedresidents = residents.map(resident =>{
@@ -121,12 +126,12 @@ app.get ('/houses/:id', (req, res) => {
 )
 
 // Getting the residents and their houses by ID
-//Dont forget to ask how to fix thisss!!!
+//Dont forget to ask how to fix thisss!!! (How to equal a list of arrays with an ID?)
 app.get ('/residents/:id', (req, res) => {
   const id = Number(req.params.id)
   let matchtwo = {
   "residents" : residents.find(resident => resident.id === id),
-  "theirhouses": houses.filter(house => Number(house.residentsId) === id)
+  "theirhouses": houses.filter(house =>house.residentsId  === id)
   }
   if (matchtwo) {
     res.send(matchtwo)

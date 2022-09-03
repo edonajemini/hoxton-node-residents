@@ -1,9 +1,9 @@
 type House = {
     id: number,
-    residentsId?:[number,number]|[number],
+    residentsId?:number|[number, number],
     adress: string,
     type:string,
-    capacity:number
+    capacity?:number
   }
 
 type Resident = {
@@ -17,28 +17,28 @@ type Resident = {
 export const DataHouses: House[] =[
     {
         id:1,
-        residentsId: [1],
+        residentsId: 1,
         adress:"8787 Central Street Scarsdale, NY 10583",
         type:"Apartment",
         capacity:3
     },
     {
         id:2,
-        residentsId: [4,6],
+        residentsId: [6, 3],
         adress:"7802 Prince Street Canfield, OH 44406",
         type:"Condo",
         capacity:2
     },
     {
         id:3,
-        residentsId: [2,5],
+        residentsId: [2 , 5],
         adress:"15 Leeton Ridge Lane Mentor, OH 44060",
         type:"Townhouse",
         capacity:1
     },
     {
         id:4,
-        residentsId: [3],
+        residentsId: 3,
         adress:"73 State St. Anchorage, AK 99504",
         type:"Villa",
         capacity:5
